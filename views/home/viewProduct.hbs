@@ -1,0 +1,11 @@
+<div class="container">
+    <h1>{{ product.name }}</h1>
+    <p>Price: ${{ product.price }}</p>
+
+    <div class="btn-group">
+        <a href="/EditProduct/{{ product.id }}" class="btn btn-primary">Edit</a>
+        <button form="deleteProductForm" class="btn btn-danger">Delete</button>
+    </div>
+
+    <form id="deleteProductForm" action="/DeleteProduct/{{ product.id }}" method="post"></form>
+</div>

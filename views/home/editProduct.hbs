@@ -1,0 +1,16 @@
+<div class="container">
+    <h1>Edit Product</h1>
+
+    <form action="/editProduct/{{{ id }}}" method="post">
+        <div class="form-group">
+            <label>Product Name</label>
+            <input name="name" value="{{{ name }}}" type="text" class="form-control" placeholder="Best product">
+        </div>
+        <div class="form-group">
+            <label>Price</label>
+            <input name="price" value="{{{ price }}}" type="text" class="form-control" placeholder="123.50">
+        </div>
+
+        <button type="submit" class="btn btn-primary">Edit</button>
+    </form>
+</div>
