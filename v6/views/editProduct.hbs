@@ -1,0 +1,18 @@
+<div class="container">
+    <h4>Add Product</h4>
+    <form action="/editProduct/{{ product.id }}" method="post">
+        <div class="form-field">
+            <label>Name</label>
+            <input name="name" value="{{ product.name }}" type="text" class="form-control" placeholder="Name">
+        </div>
+        <div class="form-field">
+            <label>Price</label>
+            <input name="price" value="{{ product.price }}" type="text" class="form-control" placeholder="Price">
+        </div>
+
+        <button class="btn btn-primary">Edit</button>
+        <button form="deleteProductForm" class="btn btn-danger">Delete</button>
+    </form>
+</div>
+
+<form id="deleteProductForm" action="/deleteProduct/{{ product.id }}" method="post"></form>
