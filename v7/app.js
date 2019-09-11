@@ -27,6 +27,7 @@ app.set('view engine', 'hbs')
 // body-parser is to allow us to get data from form posts
 app.use(bodyParser.urlencoded({ extended: true }))
 
+// we abstract the routes into their respective controllers (views also changed)
 controllers.init(app)
 
 app.listen(port, () => {
