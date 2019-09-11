@@ -23,15 +23,7 @@ app.set('view engine', 'hbs')
 
 const port = 3000
 
-// http://localhost:3000
 app.get('/', function(req, res) {
-    // renders 'views > index.hbs'
-    // the content in index.hbs is placed in the {{{ body }}} of 'views > layouts > main.hbs'
-    // title refers to the title 'slot' we created in main.hbs
-    res.render('index', { title: 'Simple E-Commerce' })
-})
-
-app.get('/products', function(req, res) {
     // getAllProducts returns a js promise
     dataAccess
         .getAllProducts()
@@ -41,7 +33,7 @@ app.get('/products', function(req, res) {
             let products = JSON.stringify(data)
 
             // pass the `products` into the view
-            res.render('products', { title: 'Products', products })
+            res.render('index', { title: 'Products', products })
         })
 })
 
