@@ -2,10 +2,27 @@
     <h1>{{ product.name }}</h1>
     <p>Price: ${{ product.price }}</p>
 
-    <div class="btn-group">
+    {{!-- <div class="btn-group">
         <a href="/EditProduct/{{ product.id }}" class="btn btn-primary">Edit</a>
         <button form="deleteProductForm" class="btn btn-danger">Delete</button>
-    </div>
+    </div> --}}
+
+    <button id="add-to-cart-btn" class="btn btn-primary">Add to Cart</button>
 
     <form id="deleteProductForm" action="/DeleteProduct/{{ product.id }}" method="post"></form>
 </div>
+
+{{#section 'scripts'}}
+<script>
+    const addToCartBtn = $('#add-to-cart-btn')
+    addToCartBtn.on('click', function (e) {
+        console.log(e)
+        $.post('/local/BuyerApi/', {
+            id: {{ product.id }},
+        quantity: 1
+        }).then(function () {
+            alert('Added to cart')
+        })
+    })
+</script>
+{{/section}}

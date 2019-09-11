@@ -1,26 +1,28 @@
 const dataAccess = require('../data')
+const passportAuth = require('../passport').passportAuth
 
-const homeController = {
+const sellerController = {
     init(app) {
-        app.get('/', async function(req, res) {
+        app.get('/seller', async function(req, res) {
             let products
 
             try {
-                products = await dataAccess.products.getAllProducts()
-
+                products = await dataAccess.products.getSellerProducts(
+                    req.user.id
+                )
                 products = JSON.stringify(products)
             } catch (err) {
                 console.log(err)
             }
 
-            res.render('home/index', {
+            res.render('seller/index', {
                 layout: 'default',
-                title: 'SE',
+                title: 'Dashboard',
                 products,
             })
         })
 
-        app.get('/ViewProduct/:id', async function(req, res) {
+        app.get('/Seller/ViewProduct/:id', async function(req, res) {
             let product
 
             try {
@@ -29,16 +31,16 @@ const homeController = {
                 console.log(err)
             }
 
-            res.render('home/viewProduct', {
+            res.render('seller/viewProduct', {
                 layout: 'default',
                 title: product.name,
                 product,
             })
         })
 
-        app.route('/AddProduct')
+        app.route('/Seller/AddProduct')
             .get(function(req, res) {
-                res.render('home/addProduct', {
+                res.render('seller/addProduct', {
                     layout: 'default',
                     title: 'Add Product',
                 })
@@ -57,10 +59,10 @@ const homeController = {
                     console.log(err)
                 }
 
-                res.redirect('/')
+                res.redirect('/Seller')
             })
 
-        app.get('/EditProduct/:id', async function(req, res) {
+        app.get('/Seller/EditProduct/:id', async function(req, res) {
             let product
 
             try {
@@ -69,7 +71,7 @@ const homeController = {
                 console.log(err)
             }
 
-            res.render('home/editProduct', {
+            res.render('seller/editProduct', {
                 layout: 'default',
                 title: 'Edit Product',
                 id: product.id,
@@ -78,29 +80,34 @@ const homeController = {
             })
         })
 
-        app.post('/EditProduct/:id', async function(req, res) {
+        app.post('/Seller/EditProduct/:id', async function(req, res) {
             let editedProduct
             try {
                 let product = req.body
                 product.id = req.params.id
+                product.sellerId = req.user.id
+
                 editedProduct = await dataAccess.products.editProduct(product)
             } catch (err) {
                 console.log(err)
             }
 
-            res.redirect(`/ViewProduct/${req.params.id}`)
+            res.redirect(`/Seller/ViewProduct/${req.params.id}`)
         })
 
-        app.post('/DeleteProduct/:id', async function(req, res) {
+        app.post('/Seller/DeleteProduct/:id', async function(req, res) {
             try {
-                await dataAccess.products.deleteProduct(req.params.id)
+                await dataAccess.products.deleteProduct(
+                    req.params.id,
+                    req.user.id
+                )
             } catch (err) {
                 console.log(err)
             }
 
-            res.redirect('/')
+            res.redirect('/Seller')
         })
     },
 }
 
-module.exports = homeController
+module.exports = sellerController

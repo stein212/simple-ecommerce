@@ -1,4 +1,8 @@
 <div class="container">
+    <h3>Dashboard</h3>
+    <h5>{{{ shopName }}}</h5>
+    <a href="/Seller/AddProduct" class="btn btn-primary">Add Product</a>
+
     <div class="row product-grid"></div>
 </div>
 
@@ -7,10 +11,9 @@
     const products = {{{ products }}}
 
     const productGrid = $('.product-grid')
-
     for (let product of products) {
         productCard = $(`<div class="col-md-3">
-            <a href="/ViewProduct/${product.id}">
+            <a href="/Seller/ViewProduct/${product.id}">
                 <div class="card">
                     <img src="/images/no-image.png" class="card-img-top" alt="">
                     <div class="card-body">
@@ -22,6 +25,14 @@
         </div>`)
         productGrid.append(productCard)
     }
-
 </script>
+
+{{/section}}
+
+{{#section 'head'}}
+<style>
+    body {
+        background-color: black;
+    }
+</style>
 {{/section}}
