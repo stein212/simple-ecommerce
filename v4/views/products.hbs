@@ -1,0 +1,24 @@
+<div class="container">
+    <h1>Static Product Grid</h1>
+
+    <div class="row product-grid"></div>
+</div>
+
+{{#section 'scripts'}}
+<script>
+    const products = {{{ products }}}
+
+    let productGrid = $('.product-grid')
+
+    for (let product of products) {
+        let productItem = `
+            <div class="col-md-3">
+                <p>${product.name}</p>
+                <p>$${product.price}</p>
+            </div>
+        `
+
+        productGrid.append(productItem)
+    }
+</script>
+{{/section}}
