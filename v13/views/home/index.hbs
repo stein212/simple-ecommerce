@@ -1,0 +1,24 @@
+<div class="container">
+    <h1>Simple E-Commerce</h1>
+    <a href="/seller/addProduct" class="btn btn-primary">Add Product</a>
+    <div class="row product-grid"></div>
+</div>
+
+{{#section 'scripts'}}
+<script>
+    const products = {{{ products }}}
+
+    let productGrid = $('.product-grid')
+
+    for (let product of products) {
+        let productItem = `
+            <div class="col-md-3">
+                <a href="/viewProduct/${product.id}"><p>${product.name}</p></a>
+                <p>$${product.price}</p>
+            </div>
+        `
+
+        productGrid.append(productItem)
+    }
+</script>
+{{/section}}
