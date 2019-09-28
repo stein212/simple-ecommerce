@@ -1,0 +1,35 @@
+<div class="container">
+    <div class="row">
+        <div class="cart-list col-md-6 list-group"></div>
+        <div class="col-md-6">
+            <h4>Total: $<span id="cart-total"></span></h4>
+        </div>
+    </div>
+</div>
+
+{{#section 'scripts'}}
+<script>
+    const cartItems = {{{ cartItems }}}
+
+    let cartList = $('.cart-list')
+    let cartTotalP = $('#cart-total')
+
+    let cartTotal = 0
+
+    for (let cartItem of cartItems) {
+        cartTotal += cartItem.price * cartItem.quantity
+
+        let cartListItem = `
+            <div class="list-group-item">
+                <a href="/viewProduct/${cartItem.id}"><p>${cartItem.name}</p></a>
+                <p>$${cartItem.price} - ${cartItem.quantity} qty</p>
+                <p>Subtotal: $${cartItem.price * cartItem.quantity}</p>
+            </div>
+        `
+
+        cartList.append(cartListItem)
+    }
+
+    cartTotalP.text(cartTotal)
+</script>
+{{/section}}
